@@ -1,6 +1,5 @@
 const ajax = function (url, method) {
     const request = new XMLHttpRequest();
-    request.overrideMimeType("application/json");
     return new Promise(function (resolve, reject) {
         request.onreadystatechange = function () {
             console.log('request => ', request)
@@ -25,6 +24,9 @@ const ajax = function (url, method) {
 
     });
 };
+
+
+//testcase1
 
 const p1 = ajax('https://jsonplaceholder.typicode.com/posts', {
     type: "GET",
