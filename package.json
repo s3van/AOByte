@@ -1,0 +1,20 @@
+{
+  "name": "aobyte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myPromise.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s3van/AOByte.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s3van/AOByte/issues"
+  },
+  "homepage": "https://github.com/s3van/AOByte#readme"
+}
