@@ -1,4 +1,4 @@
-export class DomElm {
+export default class DOMElm {
     constructor(tagName, attributes, children) {
         this.tagName = tagName;
         this.attributes = attributes;
@@ -8,7 +8,7 @@ export class DomElm {
 
     draw() {
         const element = document.createElement(this.tagName);
-        
+
         for (let attribute in this.attributes) {
             element.setAttribute(attribute, this.attributes[attribute]);
         }
@@ -20,13 +20,13 @@ export class DomElm {
             return element;
         }
 
-        if(!Array.isArray(this.children) ) {
+        if (!Array.isArray(this.children)) {
             element.appendChild(this.children.draw());
-   
+
         } else {
-             for (let key of this.children) {
+            for (let key of this.children) {
                 element.appendChild(key.draw());
-             }
+            }
         }
 
         return element;
