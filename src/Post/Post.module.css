@@ -1,0 +1,44 @@
+.wrapper{
+    border: 1px solid red;
+    height: 150px;
+    display: flex;
+    position: relative;
+}
+
+.message{
+    display: flex;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+
+.name{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+}
+
+.post{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.comments{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.commentsInput{
+    height: 110px;
+    border: 1px solid yellow;
+    width: 80%;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
