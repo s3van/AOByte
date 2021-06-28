@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import ContentStyle from "./Content.module.css"
 
 const Content = (props) => {
+  const { state } = props
   return (
     <div className={ContentStyle.content}>
       <Switch>
