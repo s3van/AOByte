@@ -1,0 +1,6 @@
+.wrapper{
+    width: 99%;
+    height: 19%;
+    border: 2px solid rgb(224, 16, 16); 
+    display: flex;
+}

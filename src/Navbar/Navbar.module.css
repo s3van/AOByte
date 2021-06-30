@@ -1,0 +1,14 @@
+.nav {
+    grid-area:  navbar;
+    border: 2.5px solid rgb(66, 18, 18);
+    background-color: rgb(65, 182, 118);
+    display: flex;
+    justify-content: center;
+    height: 5vh;
+}
+
+.item{
+  color: white;
+  text-decoration: none;
+  padding-left: 20px;
+}
