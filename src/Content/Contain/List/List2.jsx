@@ -6,19 +6,12 @@ class List2 extends Component {
   state = {
     listId2: 2,
   };
+
   render() {
-    const { listPosts2, handleAddPost, handleRemovePost} = this.props;
-    let raitArr = [];
-    let raitingsArr = [];
+    const { listPosts2, handleAddPost, handleRemovePost, toggleSort} = this.props;
 
     const postsJSX = listPosts2.map((post) => {
-      post.comments.forEach((comm) => {
-        raitArr.push(comm.raiting);
-      });
-      let sum = raitArr.reduce((a, b) => a + b, 0);
-      let readRaiting = sum / raitArr.length;
-      raitingsArr.push(readRaiting);
-      raitArr = [];
+  
       return (
         <ListPost
           post={post}
@@ -26,7 +19,7 @@ class List2 extends Component {
           handleRemovePost={(e) =>
             handleRemovePost(null, this.state.listId2, post._id)
           }
-          readRaiting={readRaiting}
+          averageRaiting={post.averageRaiting}
           listId={this.state.listId2}
         />
       );
@@ -35,7 +28,7 @@ class List2 extends Component {
     return (
       <div className={ListStyles.wrapper}>
         <button onClick={(e) => handleAddPost(this.state.listId2)}>+</button>
-        <button>sort</button>
+        <button onClick={(e) => toggleSort(this.state.listId2)}>sort</button>
         <div>{postsJSX}</div>
       </div>
     );

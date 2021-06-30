@@ -12,72 +12,78 @@ export class Contain extends Component {
     raitingsArr: [],
   };
 
-  //   achman = (raitingsArr) => {
-  //   for (var i = 0; i < raitingsArr.length; i++) {
-  //     var min = raitingsArr[i];
-  //     for (var j = i + 1; j < raitingsArr.length; j++) {
-  //       if (raitingsArr[j] < min) {
-  //         min = raitingsArr[j];
-  //       }
-  //     }
-  //     if (raitingsArr[i] > min) {
-  //       var y1 = raitingsArr.indexOf(min);
-  //       var y2 = raitingsArr.indexOf(raitingsArr[i]);
-  //       raitingsArr.splice(y1, 1, raitingsArr[i]);
-  //       raitingsArr.splice(y2, 1, min);
-  //     }
-  //   }
-  //   console.log("raitingsArr: =>",raitingsArr);
-  // };
+  handleCalcAverageRaiting = (arr) => {
+    let averagearr = [];
+    if (arr.length) {
+      arr.forEach((post) => {
+        post.comments.forEach((comm) => {
+          averagearr.push(comm.raiting);
+        });
+        let sum = averagearr.reduce((a, b) => a + b, 0);
+        let raiting = sum / averagearr.length;
+        post.averageRaiting = raiting;
+        this.state.raitingsArr.push(post.averageRaiting);
+        averagearr = [];
+      });
+      this.setState({
+        raitingsArr: [],
+        listPosts1: arr,
+        listPosts2: arr,
+      });
+    }
+  };
 
-  // handleCalcReadRaiting = (arr) => {
-  //   let { raitingsArr } = this.state
-  //   let raitArr = [];
-    
-  //   arr.forEach((post)=>{
-  //     post.comments.forEach((comm) => {
-  //         raitArr.push(comm.raiting);
-  //       });
-  //       let sum = raitArr.reduce((a, b) => a + b, 0);
-  //       let readRaiting = sum / raitArr.length;
-  //       raitingsArr.push(readRaiting);
-  
-  //       raitArr = [];
-        
-  //   })
-  //   for (var i = 0; i < raitingsArr.length; i++) {
-  //     var min = raitingsArr[i];
-  //     for (var j = i + 1; j < raitingsArr.length; j++) {
-  //       if (raitingsArr[j] < min) {
-  //         min = raitingsArr[j];
-  //       }
-  //     }
-  //     if (raitingsArr[i] > min) {
-  //       var y1 = raitingsArr.indexOf(min);
-  //       var y2 = raitingsArr.indexOf(raitingsArr[i]);
-  //       raitingsArr.splice(y1, 1, raitingsArr[i]);
-  //       raitingsArr.splice(y2, 1, min);
-  //     }
-  //   }
-  //   this.setState({
-  //         raitingsArr,
-  //       });
-  //   console.log("raitingsArr: =>",raitingsArr);
-    
-  // };
+  toggleSort = (listId) => {
+    if(listId === 1){
+      this.state.listPosts1.sort(function (a, b) {
+        if (a.averageRaiting > b.averageRaiting) {
+         return b.averageRaiting - a.averageRaiting;
+        }
+        if (a.averageRaiting < b.averageRaiting) {
+          return a.averageRaiting - b.averageRaiting;
+        }
+        return 0;
+      });
+    }
+    if( listId === 2){
+      this.state.listPosts2.sort(function (a, b) {
+        if (a.averageRaiting > b.averageRaiting) {
+         return b.averageRaiting - a.averageRaiting;
+        }
+        if (a.averageRaiting < b.averageRaiting) {
+          return a.averageRaiting - b.averageRaiting;
+        }
+        return 0;
+      });
+    }
+    this.setState({
+      listPosts1: this.state.listPosts1,
+      listPosts2: this.state.listPosts2,
+    });
+  };
 
-  handleAddPost = (idshnik) => {
+  handleAddPost = (listId) => {
     let { newArr, listPosts1, listPosts2 } = this.state;
-    let popped;
-    if (newArr.length > 0 && idshnik === 1) {
-      popped = newArr.pop();
-      listPosts1.push(popped);
-    } else if (newArr.length > 0 && idshnik === 2) {
-      popped = newArr.pop();
-      listPosts2.push(popped);
+    let poped;
+    if (newArr.length > 0 && listId === 1) {
+      poped = newArr.pop();
+      listPosts1.push(poped);
+      this.handleCalcAverageRaiting(listPosts1);
+      listPosts1.sort(function (a, b) {
+        return a.averageRaiting - b.averageRaiting;
+      });
+    } else if (newArr.length > 0 && listId === 2) {
+      poped = newArr.pop();
+      listPosts2.push(poped);
+      this.handleCalcAverageRaiting(listPosts2);
+       listPosts2.sort(function (a, b) {
+        return a.averageRaiting - b.averageRaiting;
+      });
     } else {
       return;
     }
+    poped.isAdded = true;
+    this.props.toggleHaidPost(poped, "+");
     this.setState({
       newArr,
       listPosts1,
@@ -86,29 +92,33 @@ export class Contain extends Component {
   };
 
   handleRemovePost = (listId1, listId2, _id) => {
-    let popped;
-    let { listPosts1, newArr, listPosts2,raitingsArr } = this.state;
+    let poped;
+    let { listPosts1, newArr, listPosts2 } = this.state;
     if (listId1) {
       listPosts1 = [...this.state.listPosts1];
       listPosts1.forEach(function (post) {
         if (post._id === _id) {
-          popped = listPosts1.pop(post);
-          newArr.push(popped);
+          poped = listPosts1.pop(post);
+          newArr.push(poped);
+        }
+      });
+    } else if (listId2) {
+      listPosts2 = [...this.state.listPosts2];
+      listPosts2.forEach(function (post) {
+        if (post._id === _id) {
+          poped = listPosts2.pop(post);
+          newArr.push(poped);
         }
       });
     }
-    if (listId2) {
-      let popped2 = listPosts2.pop();
-      newArr.push(popped2);
-    }
+    poped.isAdded = false;
+    this.props.toggleHaidPost(poped, "-");
     this.setState({
-        listPosts2,
-        newArr,
-        listPosts1,
-      });
+      newArr,
+      listPosts1,
+      listPosts2,
+    });
   };
-
-
 
   render() {
     const { posts } = this.props;
@@ -119,12 +129,14 @@ export class Contain extends Component {
           listPosts1={this.state.listPosts1}
           handleAddPost={this.handleAddPost}
           handleRemovePost={this.handleRemovePost}
+          toggleSort={this.toggleSort}
         />
         <List2
           posts={posts}
           listPosts2={this.state.listPosts2}
           handleAddPost={this.handleAddPost}
           handleRemovePost={this.handleRemovePost}
+          toggleSort={this.toggleSort}
         />
       </div>
     );
@@ -137,12 +149,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   // return{
-//   //   addRait: (readRait,id) => {
-//   //     dispatch({type: "raitAdd", readRait,id})
-//   //   }
-//   // }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleHaidPost: (data, indicator) => {
+      dispatch({ type: "haidPost", data, indicator });
+    },
+  };
+};
 
-export default connect(mapStateToProps,null )(Contain);
+export default connect(mapStateToProps, mapDispatchToProps)(Contain);

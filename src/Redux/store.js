@@ -1,117 +1,180 @@
 import { createStore } from "redux"
-import IdGenerator from "../Utils/IdGenerator"
+import idGenerator from "../Utils/idGenerator"
+import nameGenerator from "../Utils/nameGenerator"
 
 const initialState = {
+  test: true,
   posts: [
     {
-      _id: IdGenerator(),
+      _id: idGenerator(),
       name: "John",
       post:
         "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
       comments: [
         {
-          _id: IdGenerator(),
-          name: "A",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 4,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "B",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 5,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "C",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 8,
+          reply: "",
         },
       ],
-      readRait: null,
+      averageRaiting: null,
+      isAdded: false
     },
     {
-      _id: IdGenerator(),
+      _id: idGenerator(),
       name: "Mike",
       post:
         "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
       comments: [
         {
-          _id: IdGenerator(),
-          name: "D",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 4,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "E",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 122,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "F",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 8,
+          reply: "",
         },
       ],
-      readRait: null,
+      averageRaiting: null,
+      isAdded: false
     },
     {
-      _id: IdGenerator(),
+      _id: idGenerator(),
       name: "Stella",
       post:
         "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
       comments: [
         {
-          _id: IdGenerator(),
-          name: "G",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 55,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "H",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 5,
+          reply: "",
         },
         {
-          _id: IdGenerator(),
-          name: "I",
-          post:
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
             " fugit tempora doloribus natus.",
           raiting: 8,
+          reply: "",
         },
       ],
-      readRait: null,
+      averageRaiting: null,
+      isAdded: false
+    },
+    {
+      _id: idGenerator(),
+      name: "Emma",
+      post:
+        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
+      comments: [
+        {
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
+            " fugit tempora doloribus natus.",
+          raiting: 10,
+          reply: "",
+        },
+        {
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
+            " fugit tempora doloribus natus.",
+          raiting: 2,
+          reply: "",
+        },
+        {
+          _id: idGenerator(),
+          name: nameGenerator(),
+          text:
+            " fugit tempora doloribus natus.",
+          raiting: 17,
+          reply: "",
+        },
+      ],
+      averageRaiting: null,
+      isAdded: false
     },
   ],
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "plus": {
+    case "haidPost": {
+      let posts = [...state.posts]
+      if (action.indicator === "+") {
+        let { _id } = action.data
+        let idx = posts.findIndex(post => post._id === _id);
+        posts[idx] = action.data;
+
+      } else if (action.indicator === "-") {
+        let { _id } = action.data
+        let idx = posts.findIndex(post => post._id === _id);
+        posts[idx] = action.data;
+      }
       return {
         ...state,
-        counter: state.counter + 1
+        posts,
       }
     }
 
-    case "minus": {
-      return {
-        ...state,
-        counter: state.counter - 1
-      }
+    case "addComment": {
+      console.log(action)
+      let posts = [...state.posts]
+      let idx = posts.findIndex(post => post._id === action.postId);
+        posts[idx].comments.push(action.data)
+      //       posts.comments.push(action.data);
+            return {
+                ...state,
+                posts,         
+            }
     }
-
 
     default: return state
   }
