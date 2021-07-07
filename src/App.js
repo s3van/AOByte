@@ -1,12 +1,10 @@
 import "./App.css";
-import Navbar from "./Navbar/Navbar";
-import Content from "./Content/Content";
+import DragDrop from "./Components/DragDrop/DragDrop"
 
 function App(props) {
   return (
-    <div className="App">      
-      <Navbar />
-      <Content  />
+    <div className="App">   
+    <DragDrop />   
     </div>
   );
 }
