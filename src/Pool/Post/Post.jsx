@@ -20,7 +20,7 @@ const Post = (props) => {
     (text) => {
       handleChangeCommentInputValue(text, post._id);
     },
-    [handleChangeCommentInputValue, post._id,]
+    [handleChangeCommentInputValue, post._id]
   );
 
   const handleSubmit = useCallback(() => {

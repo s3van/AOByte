@@ -18,7 +18,7 @@ const Comment = (props) => {
       const { value } = e.target;
       handleChangeReplyCommentValue(value, comment._id, post._id);
     },
-    [ handleChangeReplyCommentValue, comment._id, post._id]
+    [handleChangeReplyCommentValue, comment._id, post._id]
   );
 
   const handleSubmit = () => {

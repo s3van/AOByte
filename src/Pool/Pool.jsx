@@ -23,11 +23,11 @@ const Pool = (props) => {
     handleChangePage,
   } = props;
 
-    const indexOfLastPost = currentPage * postPerPage;
+  const indexOfLastPost = currentPage * postPerPage;
 
-    const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const handleChange = useCallback(
     (e) => {

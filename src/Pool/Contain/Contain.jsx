@@ -120,7 +120,6 @@ export class Contain extends Component {
 
   render() {
     const { posts } = this.props;
-    console.log("newArr",this.state.newArr)
     return (
       <div className={ContainStyles.wrapper}>
         <List1
@@ -142,4 +141,4 @@ export class Contain extends Component {
   }
 }
 
-export default Contain
+export default Contain;
