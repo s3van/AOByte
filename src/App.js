@@ -1,12 +1,9 @@
-import "./App.css";
-import Pool from "./Pool/Pool"
-
-function App(props) {
-  return (
-    <div className="App">      
-      <Pool />
-    </div>
-  );
+const App = () =>{
+    return(
+        <div>
+            Hello
+        </div>
+    )
 }
 
-export default App;
+export default App
