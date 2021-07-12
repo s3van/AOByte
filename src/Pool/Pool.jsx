@@ -51,9 +51,9 @@ const Pool = (props) => {
       <Post
         post={post}
         key={post._id}
-        handleChangeCommentInputValue={(e) => handleChangeCommentInputValue}
+        handleChangeCommentInputValue={handleChangeCommentInputValue}
         handleAddComment={handleAddComment}
-        handleChangeReplyCommentValue={(e) => handleChangeReplyCommentValue}
+        handleChangeReplyCommentValue={handleChangeReplyCommentValue}
         handleReplyComment={handleReplyComment}
       />
     );

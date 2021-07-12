@@ -632,7 +632,6 @@ const poolReducer = (state = initialState, action) => {
     }
 
     case "SEARCH": {
-      console.log(action)
       let posts = [...state.posts]
       if (action.data) {
         posts.forEach((post) => {
