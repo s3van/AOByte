@@ -1,4 +1,4 @@
-var malename = [
+const malename = [
     "Allen", "Bob", "Carlton",
     "David", "Ernie", "Foster",
     "George", "Howard", "Ian",
@@ -13,7 +13,7 @@ var malename = [
     "Matthew", "Mark", "Gerald"
 ]
 
-var i = 0;
+let i = 0;
 export default function RandomName() {
     i = Math.floor(Math.random() * malename.length);
     return(

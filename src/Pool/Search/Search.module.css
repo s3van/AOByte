@@ -1,0 +1,49 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inptWrap{
+    width: 20%;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #bebebe;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.1;
+    border-radius: 3px 0 0 3px;
+    text-align: center;
+}
+
+.inptWrap:focus{
+    outline: 0;
+    border-color: #12b4ff;
+}
+
+
+.btnWrap{
+    width: 10%;
+    height: 24px;
+    border: 0;
+    background: #F7CE74;
+    font-weight: 700;
+    color: #283054;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    border-radius: 3px;
+    padding: 0;
+}
+
+.btnWrap:hover {
+    background-color: #f7d895;
+    transition: all 0.2s ease;
+    cursor: pointer;
+} 
+
+.btnWrap:disabled{
+    opacity: 0.5;
+}

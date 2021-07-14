@@ -1,8 +1,8 @@
+//IMPORT UTILS
 import idGenerator from "../../Utils/idGenerator"
 import nameGenerator from "../../Utils/nameGenerator"
 
 const initialState = {
-  searchInputValue: "",
   currentPage: 1,
   postPerPage: 3,
   posts: [
@@ -306,360 +306,60 @@ const initialState = {
       isAdded: false,
       commentInputValue: ""
     },
-    {
-      _id: idGenerator(),
-      name: "Casseti",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 5,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 5,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 8,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
-    {
-      _id: idGenerator(),
-      name: "Tex",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 10,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 2,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 17,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
-    {
-      _id: idGenerator(),
-      name: "Ciara",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 4,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 5,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 1,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
-    {
-      _id: idGenerator(),
-      name: "Cruz",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 4,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 1,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 8,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
-    {
-      _id: idGenerator(),
-      name: "Reachel",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 5,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 5,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 2,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
-    {
-      _id: idGenerator(),
-      name: "Luna",
-      post:
-        "Ex alias dolores nostrum at modi corporis recusandae fugit tempora doloribus natus.",
-      comments: [
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 10,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 2,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-        {
-          _id: idGenerator(),
-          name: nameGenerator(),
-          text: " fugit tempora doloribus natus.",
-          rating: 17,
-          reply: {
-            name: "",
-            text: "",
-            test: true,
-            _id: idGenerator()
-          },
-          replyInputValue: "",
-        },
-      ],
-      averageRating: null,
-      isAdded: false,
-      commentInputValue: ""
-    },
+
   ],
 }
 
 const poolReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case "CHANGE-SEARCH": {
-      const { value } = action
-      let posts = [...state.posts]
-      if (action.value !== "") {
-        state.searchInputValue = value
-      }
-      else {
-        posts.forEach((post) => {
-          post.isAdded = false
-        })
-      }
-      return {
-        ...state,
-        posts,
-        searchInputValue: value
-      }
-
-    }
-
     case "SEARCH": {
       let posts = [...state.posts]
-      if (action.data) {
+
+      if (action.searchInputValue) {
         posts.forEach((post) => {
-          if (action.data !== post.name) {
+          if (action.searchInputValue !== post.name) {
             post.isAdded = true
-          } else {
+          }
+          else {
             post.isAdded = false
           }
         })
       }
+
       return {
         ...state,
         posts,
       }
     }
 
-    case "HAID-POST": {
+    case "RESET": {
       let posts = [...state.posts]
-      if (action.data && action.indicator === "+") {
-        let { _id } = action.data
-        let idx = posts.findIndex(post => post._id === _id);
-        posts[idx] = action.data;
 
-      } else if (action.data && action.indicator === "-") {
-        let { _id } = action.data
-        let idx = posts.findIndex(post => post._id === _id);
-        posts[idx] = action.data;
+      posts.forEach((post) => {
+        post.isAdded = false
+      })
+
+      return {
+        ...state,
+        posts,
       }
+    }
+
+    case "HIDE-POST": {
+      let posts = [...state.posts]
+
+      if (action.payload && action.indicator === "+") {
+        const { _id } = action.payload
+        const idx = posts.findIndex(post => post._id === _id);
+        posts[idx] = action.payload;
+
+      } else if (action.payload && action.indicator === "-") {
+        const { _id } = action.payload
+        const idx = posts.findIndex(post => post._id === _id);
+        posts[idx] = action.payload;
+      }
+
       return {
         ...state,
         posts
@@ -667,10 +367,13 @@ const poolReducer = (state = initialState, action) => {
     }
 
     case "CHANGE-COMMENT": {
-      const { text, postId } = action
       let posts = [...state.posts]
-      let idx = posts.findIndex(post => post._id === postId);
+
+      const { text, postId } = action
+      const idx = posts.findIndex(post => post._id === postId);
+
       posts[idx].commentInputValue = text
+
       return {
         ...state,
         posts,
@@ -679,9 +382,12 @@ const poolReducer = (state = initialState, action) => {
 
     case "ADD-COMMENT": {
       let posts = [...state.posts]
-      let idx = posts.findIndex(post => post._id === action.postId);
-      posts[idx].comments.push(action.data)
+
+      const idx = posts.findIndex(post => post._id === action.postId);
+
+      posts[idx].comments.push(action.payload)
       posts[idx].commentInputValue = ""
+
       return {
         ...state,
         posts,
@@ -689,11 +395,15 @@ const poolReducer = (state = initialState, action) => {
     }
 
     case "CHANGE-REPLY": {
-      const { value, commentId, postId } = action
       let posts = [...state.posts]
-      let postIdx = posts.findIndex(post => post._id === postId);
-      let commIdx = posts[postIdx].comments.findIndex(comment => comment._id === commentId)
+
+      const { value, commentId, postId } = action
+
+      const postIdx = posts.findIndex(post => post._id === postId);
+      const commIdx = posts[postIdx].comments.findIndex(comment => comment._id === commentId)
+
       posts[postIdx].comments[commIdx].replyInputValue = value
+
       return {
         ...state,
         posts,
@@ -701,11 +411,15 @@ const poolReducer = (state = initialState, action) => {
     }
 
     case "ADD-REPLY": {
-      const posts = [...state.posts]
-      let postIdx = posts.findIndex(post => post._id === action.postId);
-      let commIdx = posts[postIdx].comments.findIndex(comm => comm._id === action.commentId);
-      posts[postIdx].comments[commIdx].reply = action.data
+      let posts = [...state.posts]
+
+      const postIdx = posts.findIndex(post => post._id === action.postId);
+      const commIdx = posts[postIdx].comments.findIndex(comm => comm._id === action.commentId);
+
+      posts[postIdx].comments[commIdx].reply = action.payload
+
       posts[postIdx].comments[commIdx].replyInputValue = ""
+
       return {
         ...state,
         posts,
@@ -713,15 +427,35 @@ const poolReducer = (state = initialState, action) => {
     }
 
     case "CHANGE-PAGE": {
-      return{
+
+      return {
         ...state,
         currentPage: action.activePage
       }
-      
+
     }
 
     default: return state
   }
+}
+
+export const calcAverageRating = (arr) => {
+  let averageRatingsArr = [];
+
+  if (arr.length) {
+    arr.forEach((post) => {
+      post.comments.forEach((comm) => {
+        averageRatingsArr.push(comm.rating);
+      });
+      let sum = averageRatingsArr.reduce((a, b) => a + b, 0);
+      let rating = sum / averageRatingsArr.length;
+      post.averageRating = rating;
+      averageRatingsArr = [];
+    })
+  }
+
+  return arr
+
 }
 
 export default poolReducer

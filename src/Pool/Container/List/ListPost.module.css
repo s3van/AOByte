@@ -1,0 +1,38 @@
+.wrapper{
+    border: 1px solid royalblue;
+    background-color:#82D2EE;
+}
+.name{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.post{
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.raiting{
+    font-size: 14px;
+    color: red;
+}
+
+
+.btnWrap{
+    border: 0;
+    background: #F7CE74;
+    font-weight: 700;
+    color: #283054;
+    transition: all 0.2s ease;
+    border-radius: 3px;
+}
+
+.btnWrap:hover {
+    background-color: #dbc085;
+    transition: all 0.2s ease;
+    cursor: pointer;
+} 
+
+.btnWrap:active {
+	transform: translateX(4px);
+}

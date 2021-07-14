@@ -1,129 +1,91 @@
-import Post from "./Post/Post";
-import Contain from "./Contain/Contain";
-import PoolStyles from "./Pool.module.css";
-import { connect } from "react-redux";
+//IMPORT HOOKS
+import { useSelector, useDispatch } from "react-redux";
 import { useCallback } from "react";
+
+//IMPORT COMPONENTS
+import Post from "./Post/Post";
+import Container from "./Container/Container";
+import Search from "./Search/Search";
+
+//IMPORT CSS
+import styles from "./Pool.module.css";
+
+//IMPORT EXTERNAL LIBS
 import Pagination from "react-js-pagination";
 
 const Pool = (props) => {
-  const {
-    //STATE
-    posts,
-    searchInputValue,
-    currentPage,
-    postPerPage,
-    //FUNCTIONS
-    handleChangeSearchInputValue,
-    handleSearch,
-    handleChangeCommentInputValue,
-    handleAddComment,
-    handleChangeReplyCommentValue,
-    handleReplyComment,
-    toggleHaidPost,
-    handleChangePage,
-  } = props;
+  const dispatch = useDispatch();
 
-    const indexOfLastPost = currentPage * postPerPage;
+  const posts = useSelector((state) => state.poolState.posts);
+  const currentPage = useSelector((state) => state.poolState.currentPage);
+  const postPerPage = useSelector((state) => state.poolState.postPerPage);
 
-    const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const indexOfLastPost = currentPage * postPerPage;
 
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-  const handleChange = useCallback(
-    (e) => {
-      const { value } = e.target;
-      handleChangeSearchInputValue(value);
-    },
-    [handleChangeSearchInputValue]
-  );
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const handleSubmit = useCallback(
-    (e) => {
+    (searchInputValue) => {
       if (!!searchInputValue) {
-        handleSearch(searchInputValue);
+        dispatch({ type: "SEARCH", searchInputValue });
       }
     },
-    [handleSearch, searchInputValue]
+    [dispatch]
   );
+
+  const handleReset = useCallback(() => {
+    dispatch({ type: "RESET" });
+  }, [dispatch]);
 
   const postsJSX = currentPosts.map((post) => {
     return (
       <Post
         post={post}
         key={post._id}
-        handleChangeCommentInputValue={handleChangeCommentInputValue}
-        handleAddComment={handleAddComment}
-        handleChangeReplyCommentValue={handleChangeReplyCommentValue}
-        handleReplyComment={handleReplyComment}
+        handleChangeCommentInputValue={(text, postId) =>
+          dispatch({ type: "CHANGE-COMMENT", text, postId })
+        }
+        handleAddComment={(payload, postId) =>
+          dispatch({ type: "ADD-COMMENT", payload, postId })
+        }
+        handleChangeReplyCommentValue={(value, commentId, postId) =>
+          dispatch({ type: "CHANGE-REPLY", value, commentId, postId })
+        }
+        handleReplyComment={(payload, commentId, postId) =>
+          dispatch({ type: "ADD-REPLY", payload, commentId, postId })
+        }
       />
     );
   });
+  
   return (
-    <div className={PoolStyles.wrapper}>
-      <div className={PoolStyles.toolsWrap}>
-        <input
-          placeholder="Type Name"
-          type="text"
-          onChange={handleChange}
-          value={searchInputValue}
-          className={PoolStyles.inptWrap}
+    <div className={styles.wrapper}>
+      <div className={styles.toolsWrap}>
+        <Search handleSubmit={handleSubmit} handleReset={handleReset} />
+      </div>
+      <div className={styles.postsWrap}>{postsJSX}</div>
+      <div className={styles.containerWrap}>
+        <Container
+          posts={posts}
+          toggleHidePost={(payload, indicator) =>
+            dispatch({ type: "HIDE-POST", payload, indicator })
+          }
         />
-        <button onClick={handleSubmit} className={PoolStyles.btnWrap}>
-          Search
-        </button>
       </div>
-      <div className={PoolStyles.postsWrap}>{postsJSX}</div>
-      <div className={PoolStyles.containWrap}>
-        <Contain posts={posts} toggleHaidPost={toggleHaidPost} />
-      </div>
-      <div className={PoolStyles.page}>
+      <div className={styles.page}>
         <Pagination
           activePage={currentPage}
           itemsCountPerPage={postPerPage}
           totalItemsCount={posts.length}
-          onChange={(pageNumber) => handleChangePage(pageNumber)}
+          onChange={(activePage) =>
+            dispatch({ type: "CHANGE-PAGE", activePage })
+          }
         />
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    posts: state.poolState.posts,
-    searchInputValue: state.poolState.searchInputValue,
-    currentPage: state.poolState.currentPage,
-    postPerPage: state.poolState.postPerPage,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleChangeSearchInputValue: (value) => {
-      dispatch({ type: "CHANGE-SEARCH", value });
-    },
-    handleSearch: (data) => {
-      dispatch({ type: "SEARCH", data });
-    },
-    handleChangeCommentInputValue: (text, postId) => {
-      dispatch({ type: "CHANGE-COMMENT", text, postId });
-    },
-    handleAddComment: (data, postId) => {
-      dispatch({ type: "ADD-COMMENT", data, postId });
-    },
-    handleChangeReplyCommentValue: (value, commentId, postId) => {
-      dispatch({ type: "CHANGE-REPLY", value, commentId, postId });
-    },
-    handleReplyComment: (data, commentId, postId) => {
-      dispatch({ type: "ADD-REPLY", data, commentId, postId });
-    },
-    toggleHaidPost: (data, indicator) => {
-      dispatch({ type: "HAID-POST", data, indicator });
-    },
-    handleChangePage: (activePage) => {
-      dispatch({ type: "CHANGE-PAGE", activePage });
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Pool);
+export default Pool;

@@ -1,5 +1,10 @@
+//IMPORT HOOKS
 import { useCallback } from "react";
-import CommentStyles from "./Comment.module.css";
+
+//IMPORT CSS
+import styles from "./Comment.module.css";
+
+//IMPORT UTILS
 import nameGenerator from "../../../Utils/nameGenerator";
 import idGenerator from "../../../Utils/idGenerator";
 
@@ -33,51 +38,51 @@ const Comment = (props) => {
     }
   };
 
-  const cls = [CommentStyles.wrapper];
+  const cls = [styles.wrapper];
   const colorForRating = (rating) => {
     switch (true) {
       case rating < 3 && rating > 0:
-        cls.push(CommentStyles.badRating);
+        cls.push(styles.badRating);
         return cls.join(" ");
       case rating <= 4 && rating >= 3:
-        cls.push(CommentStyles.normalRating);
+        cls.push(styles.normalRating);
         return cls.join(" ");
       case rating > 4:
-        cls.push(CommentStyles.goodRating);
+        cls.push(styles.goodRating);
         return cls.join(" ");
       default:
-        cls.push(CommentStyles.wrapper);
+        cls.push(styles.wrapper);
         return cls.join(" ");
     }
   };
 
   return (
     <div className={colorForRating(comment.rating)}>
-      <div className={CommentStyles.comment}>
-        <div className={CommentStyles.commentWrap}>
-          <div className={CommentStyles.name}>{comment.name}</div>
-          <div className={CommentStyles.text}>{comment.text}</div>
+      <div className={styles.comment}>
+        <div className={styles.commentWrap}>
+          <div className={styles.name}>{comment.name}</div>
+          <div className={styles.text}>{comment.text}</div>
           <div>Comment rating: {comment.rating}</div>
         </div>
-        <div className={CommentStyles.textWrap}>
+        <div className={styles.textWrap}>
           {comment.reply.test && (
-            <div className={CommentStyles.toolsWrap}>
+            <div className={styles.toolsWrap}>
               <input
                 type="text"
                 placeholder="Reply to comment"
                 onChange={handleChange}
                 value={comment.replyInputValue}
-                className={CommentStyles.inptWrap}
+                className={styles.inptWrap}
               />
-              <button onClick={handleSubmit} className={CommentStyles.btnWrap}>
+              <button onClick={handleSubmit} className={styles.btnWrap}>
                 Reply
               </button>
             </div>
           )}
         </div>
-        <div className={CommentStyles.replyWrap}>
-          <div className={CommentStyles.replyName}>{comment.reply.name}</div>
-          <div className={CommentStyles.replyText}>{comment.reply.text}</div>
+        <div className={styles.replyWrap}>
+          <div className={styles.replyName}>{comment.reply.name}</div>
+          <div className={styles.replyText}>{comment.reply.text}</div>
         </div>
       </div>
     </div>

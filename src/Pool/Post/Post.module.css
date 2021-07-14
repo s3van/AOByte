@@ -2,12 +2,12 @@
     min-height: 150px;
     display: flex;
     position: relative;
-    margin-bottom: 10px; 
+    margin-bottom: 8px; 
     opacity: 1;
     transition: all 0.2s ease;
     font-weight: 500;
     border: 1px dashed chocolate;
-    background-color: rgb(139, 184, 170);
+    background-color: #AAD4C8;
 }
 .addedWrapper{
     opacity: 0;
