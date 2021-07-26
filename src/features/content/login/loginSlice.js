@@ -18,10 +18,8 @@ export const loginAsync = createAsyncThunk(
             const response = await login(email, password)
             localStorage.setItem("token", response.data.accessToken)
             if (response.status === 200) {
-                // dispatch(toggleAuth(localStorage.getItem("token")))
-                // history.push("/home")
                 console.log(response)
-                
+
             }
             return response.data
 
@@ -56,7 +54,6 @@ export const logoutAsync = createAsyncThunk(
             dispatch(toggleLoading(true))
             await logout()
             localStorage.removeItem("token")
-            // dispatch(toggleAuth(null))
             history.push("/")
         } catch (e) {
             console.log(e.response?.data?.message)
@@ -69,7 +66,7 @@ export const logoutAsync = createAsyncThunk(
 export const checkauthAsync = createAsyncThunk(
     'login/checkAuth',
     async (action, func) => {
-        const {dispatch} = func
+        const { dispatch } = func
         try {
             const response = await checkAuth()
             localStorage.setItem("token", response.data.accessToken)

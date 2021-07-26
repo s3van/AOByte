@@ -1,4 +1,3 @@
-
 import './App.css';
 import Navbar from "./features/navbar/Navbar"
 import Content from "./features/content/Content"
@@ -15,7 +14,7 @@ function App() {
       dispatch(checkauthAsync())
     }
   }, [])
-  
+
   return (
     <div className="App">
       <Content />

@@ -12,13 +12,11 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 
 const Content = () => {
-  const isAuth = useSelector(selectAuth);
-  
+
   const [pages] = useState([
     { path: "/", component: Login, exact: true },
     { path: "/home", component: Home, exact: true },
     { path: "/books", component: Books, exact: true },
-    // { path: "/task/:id", component: SingleBook, exact: true },
     { path: "/notfound", component: NotFound, exact: true },
   ])
 

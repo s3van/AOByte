@@ -19,8 +19,6 @@ const Login = (props) => {
     const submitData = () => {
         const { history } = props
         dispatch(loginAsync({ email, password, history }))
-        // setEmail("")
-        // setPassword("")
     }
 
     if (isLoading) {
