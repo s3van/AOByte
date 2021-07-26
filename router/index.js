@@ -1,0 +1,25 @@
+const Router = require("express")
+const userController = require("../controllers/userController")
+const bookController = require("../controllers/bookController")
+const router = new Router()
+const { body } = require("express-validator")
+const authMiddleWare = require("../middlewares/authMiddleware")
+const roleMiddleWare = require("../middlewares/roleMiddleWare")
+
+router.post("/registration",
+    body("email").isEmail(),
+    body("password").isLength({ min: 5, max: 30 }),
+    userController.registration)
+//registration & authorization
+router.post("/login", userController.login)
+router.post("/logout", userController.logut)
+router.get("/activate/:link", userController.activate)
+router.get("/refresh", userController.refresh)
+//options
+router.get("/users", authMiddleWare, userController.getUsers)
+router.get("/books", authMiddleWare, bookController.getBooks)
+router.post("/books", roleMiddleWare(["ADMIN"]), bookController.postBook)
+router.delete("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.deleteBook)
+router.patch("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.updateBook)
+
+module.exports = router
