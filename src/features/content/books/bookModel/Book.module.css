@@ -1,0 +1,152 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    min-height: 300px;
+    max-height: 300px;
+    width: 300px;
+    transition: all 0.1s ease;
+    margin-bottom: 30px;
+    background: #000;
+    color: #000;
+}
+
+.checkedWrapper{
+    opacity: 0.5;
+}
+
+.wrapper:hover{
+    box-shadow: 0 0 10px rgba(196, 189, 189, 0.747);
+    cursor: pointer;
+}
+
+.toolsWrapper{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+
+.info {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin: 0 5px;
+    font-weight: 500;
+    font-style: inherit;
+    border: none;
+    height: 25px;
+    background-color: #003049;
+    color: #EAE2B7;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.info:hover{
+    padding-bottom: 100px;
+}
+
+.info:hover .span2 {
+    opacity: 1;
+  }
+.info:hover .span1 {
+     opacity: 0;
+} 
+
+.editBtn{
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 0;
+    background: #F77F00;
+    color: snow;
+    transition: all 0.2s ease;
+} 
+
+.editBtn:focus {
+	  outline: none;
+}
+
+.editBtn:active {
+	transform: translateY(4px);
+}
+
+.editBtn:hover {
+	background-color: rgb(255, 163, 77);
+	transition: all .2s ease;
+	cursor: pointer;
+}
+
+.editBtn:disabled{
+    opacity: 0.5;
+    transform: none;
+}
+
+.deleteBtn{
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 0;
+    background: #D62828;
+    color: snow;
+    transition: all 0.2s ease;
+} 
+
+.deleteBtn:focus {
+	  outline: none;
+}
+
+.deleteBtn:active {
+	transform: translateY(4px);
+}
+
+.deleteBtn:hover {
+	background-color: rgb(252, 81, 69);
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.deleteBtn:disabled{
+    opacity: 0.5;
+    transform: none;
+}
+
+.inpt{
+    height: 30px;
+    width: 30px;
+}
+
+.inpt:hover {
+   cursor: pointer;
+}
+
+.link{
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    text-decoration: none;
+    transition:color 0.2s linear;
+}
+  
+.link:after{
+    content: "";
+    display: block;
+    opacity: 0;
+    width: 100%;
+    height: 3px;
+    background-color:  #fff;
+    position: absolute;
+    transition: all 0.2s linear;
+}
+  
+.link:hover::after {
+    opacity: 1;
+  
+}

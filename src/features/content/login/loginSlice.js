@@ -1,25 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, registration, logout, checkAuth, getUsers } from './loginApi';
+import { login, registration, logout, getUsers } from './loginApi';
+import { API_URL } from "../../../http/index"
+import axios from "axios"
 
 const initialState = {
     isAuth: null,
     isLoading: false,
-    value: 0,
     users: [],
 };
 
 export const loginAsync = createAsyncThunk(
     'login/loginAsync',
     async (action, func) => {
-        const { email, password, history } = action
+        const { email, password, history} = action
         const { dispatch } = func
 
         try {
             const response = await login(email, password)
             localStorage.setItem("token", response.data.accessToken)
             if (response.status === 200) {
-                console.log(response)
-
+                dispatch(toggleAuth(true))
+                history.push("/books")
             }
             return response.data
 
@@ -37,8 +38,8 @@ export const registrationAsync = createAsyncThunk(
         const { email, password } = payload
         try {
             const response = await registration(email, password)
-            console.log(response)
             localStorage.setItem("token", response.data.accessToken)
+            console.log(response)
         } catch (e) {
             console.log(e.response?.data?.message)
         }
@@ -54,6 +55,7 @@ export const logoutAsync = createAsyncThunk(
             dispatch(toggleLoading(true))
             await logout()
             localStorage.removeItem("token")
+            dispatch(toggleAuth(false))
             history.push("/")
         } catch (e) {
             console.log(e.response?.data?.message)
@@ -68,10 +70,9 @@ export const checkauthAsync = createAsyncThunk(
     async (action, func) => {
         const { dispatch } = func
         try {
-            const response = await checkAuth()
+            const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true })
             localStorage.setItem("token", response.data.accessToken)
             dispatch(toggleAuth(true))
-            console.log(response)
         } catch (e) {
             console.log(e.response?.data?.message)
         }
@@ -102,9 +103,6 @@ export const loginSlice = createSlice({
         toggleLoading: (state, action) => {
             state.isLoading = action.payload
         },
-        setUsers: (state, action) => {
-            state.users.push(action.payload)
-        }
     },
 });
 

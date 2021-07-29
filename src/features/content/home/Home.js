@@ -1,10 +1,9 @@
 import styles from "./Home.module.css"
 import { useSelector, useDispatch } from 'react-redux';
-import {useEffect } from "react"
+
 import {
     logoutAsync,
     selectAuth,
-    toggleAuth,
     getusersAsync
 } from "../login/loginSlice";
 
@@ -20,17 +19,6 @@ const Home = (props) => {
         dispatch(logoutAsync({ history }))
 
     } 
-
-    useEffect(() => {
-        const token = localStorage.getItem("token")
-       if (token) {
-        dispatch(toggleAuth(true))
-      }
-      if(!token){
-        dispatch(toggleAuth(false))
-      }
-      }, [])
-
 
     return(
         <div className={styles.wrapper}>

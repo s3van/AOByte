@@ -1,6 +1,267 @@
-.wrapper{
-    margin-top: 60px;
-    color: blueviolet;
+.books{
+   display: flex;
+   height: 100vh;
+   width: 100%;
+   border: 3px dashed rgb(6, 119, 122);
+   text-align: center;
+   max-height: 100%;
+   min-width: 100%;
+   overflow-y: scroll;
+   flex-direction: column;
+   overflow-x: hidden;
+   padding-top: 50px;
+}
+
+.tools{
+    border: 2px solid red;
+}
+
+.booksWrap{
+    padding-top: 100px;
+    border: 2px solid rgb(9, 255, 0);
+}
+
+.pages{
+    display: flex;
+    border: 2px solid yellowgreen;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+   li {
+    width: 30px;
+    border: 1px solid #e2e2e2;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 25px;
+  }
+  
+   li a {
+    text-decoration: none;
+    color: #337ab7;
+    font-size: 20px;
+  }
+  
+   li.active a {
+      color: rgb(0, 255, 21);
+  }
+   li.active {
+      color: rgb(0, 255, 21);
+  }
+  
+   li a:hover,
+   li a.active {
+    color: rgb(0, 255, 21);
+  }
+
+h1{
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #696969;
+	border-radius: 5px;
+}
+
+/* .ptux{
+    margin: 0 auto;
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+}
+
+.btnWrap{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.btn{
+    width: 140px;
+    margin-bottom: 10px;
+}
+
+.addBtn{
+    background: #003049;
+    font-weight: 700;
+    color: snow;
+    transition: all 0.2s ease;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    border: 0;
+    transition: all 0.2s ease;
+}
+
+.addBtn:focus {
+    outline: none;
+}
+
+.addBtn:hover {
+  background-color: rgba(19, 84, 87, 0.856);
+  transition: all 0.2s ease;
+  cursor: pointer;
+} 
+
+.addBtn:active {
+	transform: translateY(2px);
+}
+
+.addBtn:disabled{
+    opacity: 0.5;
+    transition: 0.1s;
+    transition: none;
+}
+
+
+
+.deleteCheckedBtn{
+    width: 100%;
+    height: 100%;
+    font-weight: 700;
+    border-radius: 4px;
+    border: 0;
+    background: #D62828;
+    color: snow;
+    transition: all 0.2s ease;
+}
+
+.deleteCheckedBtn:focus {
+	  outline: none;
+}
+
+.deleteCheckedBtn:active {
+	transform: translateY(4px);
+}
+
+.deleteCheckedBtn:hover {
+	background-color: rgb(252, 81, 69);
+	transition: all 0.2s ease;
+	cursor: pointer;
+} 
+
+.deleteCheckedBtn:disabled{
+    opacity: 0.5;
+    transition: 0.1s;
+    transition: none;
+}
+
+.checkedAllTasksBtn{
+    width: 100%;
+    height: 100%;
+    font-weight: 700;
+    border-radius: 4px;
+    border: 0;
+    background: #1e3836;
+    color: snow;
+    transition: all 0.2s ease;
+}
+
+.checkedAllTasksBtn:focus {
+    outline: none;
+}
+
+.checkedAllTasksBtn:active {
+  transform: translateY(4px);
+}
+
+.checkedAllTasksBtn:hover {
+  background-color: rgb(55, 95, 89);
+  transition: all 0.2s ease;
+  cursor: pointer;
+} 
+
+.checkedAllTasksBtn:disabled{
+    opacity: 0.5;
+    transition: 0s;
+    transform: none;
+}
+
+.footer{
     display: flex;
     justify-content: center;
 }
+
+.btn1{
+    width: 15%;
+    height: 40px;
+	padding: 8px 0;
+    border: 0;
+    font-weight: 700;
+    color: snow;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    margin-right: 5px;
+} 
+
+.btn1:focus {
+	  outline: none;
+}
+
+.btn1:active {
+	transform: translateX(-5px);
+}
+
+.btn1:hover {
+	transition: all 0.2s ease;
+	cursor: pointer;
+} 
+
+.btn1:disabled{
+    opacity: 0.5;
+} 
+
+.btn2{
+    width: 15%;
+    height: 40px;
+	padding: 8px 0;
+    border: 0;
+    font-weight: 700;
+    color: snow;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+} 
+
+.btn2:focus {
+	  outline: none;
+}
+
+.btn2:active {
+	transform: translateX(-5px);
+}
+
+.btn2:hover {
+	transition: all 0.2s ease;
+	cursor: pointer;
+} 
+
+.btn2:disabled{
+    opacity: 0.5;
+} 
+
+.btn2:active{
+    transform: translateX(5px);
+} */

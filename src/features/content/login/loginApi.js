@@ -7,7 +7,7 @@ export function login(email, password) {
 }
 
 export function registration(email, password) {
-    return api.post("/registration", { email, password })
+    return api.post("/users", { email, password })
 }
 
 export function logout() {

@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useSelector } from 'react-redux';
 import styles from "./Content.module.css";
-import { selectAuth } from "../content/login/loginSlice"
 //Pages
 import Home from "./home/Home";
 import Login from "./login/Login"

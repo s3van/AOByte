@@ -3,7 +3,8 @@ import Navbar from "./features/navbar/Navbar"
 import Content from "./features/content/Content"
 import { useEffect } from "react"
 import { useDispatch } from 'react-redux';
-import { checkauthAsync } from "./features/content/login/loginSlice"
+import { checkauthAsync, toggleAuth } from "./features/content/login/loginSlice"
+
 
 function App() {
 
@@ -12,8 +13,13 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(checkauthAsync())
+      dispatch(toggleAuth(true))
     }
-  }, [])
+    if(!localStorage.getItem("token")){
+      dispatch(toggleAuth(false))
+    }
+    
+  }, [dispatch])
 
   return (
     <div className="App">
