@@ -14,7 +14,7 @@ class UserService {
 
         const candidate = await UserModel.findOne({ email })
         if (candidate) {
-            throw ApiError.BadRequest(`А user with such an email ${email} already exists`)
+            throw ApiError.AlreadyExists(`А user with such an email ${email} already exists`)
         }
         const hashPassword = await bcrypt.hash(password, 3)
         const activationLink = uuid.v4()
@@ -76,8 +76,6 @@ class UserService {
         const userData = tokenService.validateRefreshToken(refreshToken)
         const tokenFromDb = await tokenService.findToken(refreshToken)
         if (!userData || !tokenFromDb) {
-            console.log(userData)
-            console.log( tokenFromDb)
             throw ApiError.UnAuthorizedError()
             
         }

@@ -20,6 +20,10 @@ const BookSchema = new Schema({
         type: String,
         required: true,
     },
+    
+    raiting: {
+        type: Array,
+    },
 
     date: {
         type: Date,

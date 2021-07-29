@@ -28,7 +28,7 @@ class MailService {
                     </div>
                 `
         }, (err, info) => {
-            console.log(">>>>>>>>", err);
+           res.json(err)
         })
     }
 }

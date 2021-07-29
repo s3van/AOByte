@@ -6,7 +6,7 @@ const { body } = require("express-validator")
 const authMiddleWare = require("../middlewares/authMiddleware")
 const roleMiddleWare = require("../middlewares/roleMiddleWare")
 
-router.post("/registration",
+router.post("/users",
     body("email").isEmail(),
     body("password").isLength({ min: 5, max: 30 }),
     userController.registration)
@@ -17,9 +17,10 @@ router.get("/activate/:link", userController.activate)
 router.get("/refresh", userController.refresh)
 //options
 router.get("/users", authMiddleWare, userController.getUsers)
-router.get("/books", authMiddleWare, bookController.getBooks)
+router.get("/books", authMiddleWare, bookController.getBatchBooks)
 router.post("/books", roleMiddleWare(["ADMIN"]), bookController.postBook)
 router.delete("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.deleteBook)
+router.post("/books/batchDelete", roleMiddleWare(["ADMIN"]), bookController.deleteBooks)
 router.patch("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.updateBook)
 
 module.exports = router
