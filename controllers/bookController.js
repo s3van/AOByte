@@ -1,15 +1,28 @@
-
 const ApiError = require("../exceptions/apiError")
-const BookModel = require("../models/bookModel")
 const bookService = require("../service/bookService")
+const fs = require("fs")
+const path = require("path")
 
 class BookController {
 
+    async postImage(req, res, next){
+        try{
+            if (!req.file) {
+                throw ApiError.BadRequest(`Please add image`)
+            }
+            // let src = path.join("C:/Users/COMP/Desktop/AOB/server" + '/images/' + req.file.originalname)
+            // res.send(src)
+            res.json(req.file)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async postBook(req, res, next) {
         try {
-            const { title, description, author, img } = req.body
-            const book = await bookService.postBook(title, description, author, img)
-            return res.json(book)
+            const {title, description, author, img} = req.body
+            const savedBook = await bookService.postBook(title,description,author, img)
+            return res.json(savedBook)
         } catch (e) {
             next(e)
         }
@@ -26,12 +39,12 @@ class BookController {
     }
 
     async updateBook(req, res, next) {
-
         try {
-            const {_id} = req.params.bookId
-            const {title, img, description, author} = req.body
-            const updatedBook = await bookSerice.updateOneBook(_id,title,img,description,author)
+            const { title, img, description, author } = req.body
+            const id = req.params.bookId
+            const updatedBook = await bookService.updateOneBook(title, description, img, author, id)
             return res.json(updatedBook)
+
         } catch (e) {
             next(e)
         }
@@ -50,14 +63,16 @@ class BookController {
 
     async getBatchBooks(req, res, next) {
         try {
+
+            // await adminRole.save()
             const { query } = req;
             const dbQuery = {};
             const sort = {}
             const pageOptions = {
-                page: parseInt(req.query.page, 10) || 0,
-                limit: parseInt(req.query.limit, 10) || 10
-            }   
-            const batchBooks = await bookService.getBatchBooks(query,dbQuery,sort,pageOptions)
+                page: parseInt(req.query.page,10) || 0,
+                limit: parseInt(req.query.limit,10) || 12
+            }
+            const batchBooks = await bookService.getBatchBooks(query, dbQuery, sort, pageOptions)
             return res.json(batchBooks)
             // if (query.search) {
             //     const searchReg = new RegExp(query.search, 'ig');

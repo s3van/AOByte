@@ -6,13 +6,15 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const router = require("./router/index")
 const errorMiddleware = require("./middlewares/errorMiddleware")
-
+const path = require("path")
 const PORT = process.env.PORT || 5000
 const app = express()
 
+
 //MIDDLEWARES
-app.use(express.json())
+app.use(express.json({extended: true}))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
@@ -20,7 +22,7 @@ app.use(cors({
 }))
 app.use("/api", router)
 app.use(errorMiddleware)
-
+app.use("/images", express.static(path.join(__dirname, "images")))
 
 const start = async () => {
     try {

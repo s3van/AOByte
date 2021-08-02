@@ -4,7 +4,8 @@ const bookController = require("../controllers/bookController")
 const router = new Router()
 const { body } = require("express-validator")
 const authMiddleWare = require("../middlewares/authMiddleware")
-const roleMiddleWare = require("../middlewares/roleMiddleWare")
+const roleMiddleWare = require("../middlewares/roleMiddleware")
+const imgMiddleWare = require("../middlewares/imgMiddleware.js")
 
 router.post("/users",
     body("email").isEmail(),
@@ -19,6 +20,7 @@ router.get("/refresh", userController.refresh)
 router.get("/users", authMiddleWare, userController.getUsers)
 router.get("/books", authMiddleWare, bookController.getBatchBooks)
 router.post("/books", roleMiddleWare(["ADMIN"]), bookController.postBook)
+router.post("/images", roleMiddleWare(["ADMIN"]), imgMiddleWare.single("avatar"), bookController.postImage)
 router.delete("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.deleteBook)
 router.post("/books/batchDelete", roleMiddleWare(["ADMIN"]), bookController.deleteBooks)
 router.patch("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.updateBook)

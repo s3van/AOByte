@@ -3,34 +3,37 @@ const BookModel = require("../models/bookModel")
 
 class BookService {
 
-    async getBooks() {
-        const books = await BookModel.find()
-        return books
-    }
+    // async getBooks() {
+    //     const books = await BookModel.find()
+    //     return books
+    // }
 
     async postBook(title, description, author, img) {
+        
         const book = new BookModel({
             title: title,
             description: description,
             author: author,
-            img: img,
+            img: img
         })
+
         const savedBook = await book.save()
         return savedBook
     }
 
     async deleteOneBook(_id) {
-        const deletedBook = BookModel.deleteOne({_id})
+        const deletedBook = BookModel.deleteOne({ _id })
         return deletedBook
     }
 
-    async updateOneBook(_id, title, description, author, img) {
-        const updatedBook = BookModel.updateOne(_id, {
-            $set: { title: title },
-            $set: { description: description },
-            $set: { author: auhtor },
-            $set: { img: img },
-        })
+    async updateOneBook(title, description, img, author, id) {
+        const updatedBook = BookModel.updateOne({ _id: id },
+      {      $set: {
+            title: title,
+            description: description,
+            author: author,
+            img: img,
+        }})
         return updatedBook
     }
 
@@ -47,7 +50,7 @@ class BookService {
 
 
     async getBatchBooks(query, dbQuery, sort, pageOptions) {
-        
+
         if (query.sort) {
             switch (query.sort) {
                 case 'a-z':
@@ -64,9 +67,9 @@ class BookService {
         }
         const booksCount = await BookModel.find()
         const books = await BookModel.find(dbQuery)
-        .sort(sort)
-        .skip(pageOptions.page * pageOptions.limit)
-        .limit(pageOptions.limit)
+            .sort(sort)
+            .skip(pageOptions.page * pageOptions.limit)
+            .limit(pageOptions.limit)
         // .exec(function (err, doc) {
         //     if(err) { res.status(500).json(err); return; };
         //     res.status(200).json(doc);

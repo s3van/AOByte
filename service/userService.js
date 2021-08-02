@@ -14,7 +14,7 @@ class UserService {
 
         const candidate = await UserModel.findOne({ email })
         if (candidate) {
-            throw ApiError.AlreadyExists(`А user with such an email ${email} already exists`)
+            throw ApiError.AlreadyExists(`А user with such an email already exists`)
         }
         const hashPassword = await bcrypt.hash(password, 3)
         const activationLink = uuid.v4()
