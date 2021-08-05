@@ -1,44 +1,62 @@
 const ApiError = require("../exceptions/apiError")
 const BookModel = require("../models/bookModel")
+const userModel = require("../models/userModel")
+const UserModel = require("../models/userModel")
 
 class BookService {
-
-    // async getBooks() {
-    //     const books = await BookModel.find()
-    //     return books
-    // }
-
-    async postBook(title, description, author, img) {
-        
+    async postBook(title, description, author, genre, year, img, link, email) {
         const book = new BookModel({
             title: title,
             description: description,
             author: author,
-            img: img
+            genre: genre,
+            year: year,
+            img: img,
+            downloadLink: link,
+            owner: email
         })
-
+        const user = await UserModel.findOne({ email })
+        if(!user) throw ApiError.BadRequest(`User with this email was not found`)
         const savedBook = await book.save()
-        return savedBook
+        return {
+            savedBook,
+            role: user.roles
+        }
     }
 
     async deleteOneBook(_id) {
-        const deletedBook = BookModel.deleteOne({ _id })
+        const deletedBook = await BookModel.deleteOne({ _id })
         return deletedBook
     }
 
-    async updateOneBook(title, description, img, author, id) {
-        const updatedBook = BookModel.updateOne({ _id: id },
-      {      $set: {
-            title: title,
-            description: description,
-            author: author,
-            img: img,
-        }})
-        return updatedBook
+    async updateOneBook(title, description, author, genre, year, img, rating, id, link, email) {
+        const user = await UserModel.findOne({ email })
+        if(!user) throw ApiError.BadRequest(`User with this email was not found`)
+        const updatedBook = await BookModel.updateOne({ _id: id },
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                    author: author,
+                    genre: genre,
+                    year: year,
+                    img: img,
+                    downloadLink: link,
+                    owner: email,
+
+                },
+                $push: {
+                    rating: rating,
+                }
+            })
+        return {
+            ...updatedBook,
+            role: user.roles
+        }
     }
 
     async deleteManyBooks(ids) {
-        const deletedBooks = BookModel.deleteMany({
+        const deletedBooks = await BookModel.deleteMany({
             _id: {
                 $in:
                     ids
@@ -46,6 +64,12 @@ class BookService {
         })
         if (deletedBooks.deletedCount === 0) throw ApiError.BadRequest(`Books not found`)
         return deletedBooks
+    }
+
+    async getSingleBook(_id) {
+        const singleBook = await BookModel.findOne({ _id })
+        if (!singleBook) throw ApiError.BadRequest(`Book not found`)
+        return singleBook
     }
 
 
@@ -70,12 +94,10 @@ class BookService {
             .sort(sort)
             .skip(pageOptions.page * pageOptions.limit)
             .limit(pageOptions.limit)
-        // .exec(function (err, doc) {
-        //     if(err) { res.status(500).json(err); return; };
-        //     res.status(200).json(doc);
-        // });
         if (!books.length) {
-            res.status(500).json(err)
+            return {
+                books: []
+            }
         }
         return {
             books,

@@ -16,12 +16,22 @@ const BookSchema = new Schema({
         required: true,
     },
 
+    genre: {
+        type: String,
+        required: true,
+    },
+
+    year: {
+        type: String,
+        required: true,
+    },
+    
     img: {
         type: String,
         required: true,
     },
     
-    raiting: {
+    rating: {
         type: Array,
     },
 
@@ -29,6 +39,18 @@ const BookSchema = new Schema({
         type: Date,
         default: Date.now
     },
+
+    downloadLink: {
+        type: String,
+        required: true,
+    },
+
+    owner: {
+        type: String,
+        required: true,
+    }
+
+
 })
 
 module.exports = model("book", BookSchema)

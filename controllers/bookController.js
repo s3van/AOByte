@@ -10,8 +10,6 @@ class BookController {
             if (!req.file) {
                 throw ApiError.BadRequest(`Please add image`)
             }
-            // let src = path.join("C:/Users/COMP/Desktop/AOB/server" + '/images/' + req.file.originalname)
-            // res.send(src)
             res.json(req.file)
         } catch (e) {
             next(e)
@@ -20,11 +18,20 @@ class BookController {
 
     async postBook(req, res, next) {
         try {
-            const {title, description, author, img} = req.body
-            const savedBook = await bookService.postBook(title,description,author, img)
+            const {title, description, author, genre, year, img, link, owner } = req.body
+            const savedBook = await bookService.postBook(title,description,author,genre, year, img, link, owner)
             return res.json(savedBook)
         } catch (e) {
             next(e)
+        }
+    }
+
+    async addRating(req,res,next){
+        try{
+            const {id,rating} = req.body
+            await bookService.addRating(id, rating)
+        }catch(e){
+
         }
     }
 
@@ -40,13 +47,22 @@ class BookController {
 
     async updateBook(req, res, next) {
         try {
-            const { title, img, description, author } = req.body
+            const { title, img, description, author, rating, genre, year, owner, link } = req.body
             const id = req.params.bookId
-            const updatedBook = await bookService.updateOneBook(title, description, img, author, id)
+            const updatedBook = await bookService.updateOneBook(title, description, author, genre, year, img, rating, id, link, owner)
             return res.json(updatedBook)
-
         } catch (e) {
             next(e)
+        }
+    }
+
+    async getSingle(req,res,nex){
+        try{
+            const id = req.params.bookId
+            const singleBook = await bookService.getSingleBook(id)
+            return res.json(singleBook)
+        } catch(e){
+
         }
     }
 
@@ -63,8 +79,6 @@ class BookController {
 
     async getBatchBooks(req, res, next) {
         try {
-
-            // await adminRole.save()
             const { query } = req;
             const dbQuery = {};
             const sort = {}
@@ -74,27 +88,6 @@ class BookController {
             }
             const batchBooks = await bookService.getBatchBooks(query, dbQuery, sort, pageOptions)
             return res.json(batchBooks)
-            // if (query.search) {
-            //     const searchReg = new RegExp(query.search, 'ig');
-            //     dbQuery.$or = [{ title: searchReg }, { author: searchReg }];
-            // }
-            // const sort = {};
-            // if (query.sort) {
-            //     switch (query.sort) {
-            //         case 'a-z':
-            //             sort.title = 1;
-            //             break;
-            //         case 'z-a':
-            //             sort.title = -1;
-            //             break;
-            //     }
-            // }
-
-            // const books = await BookModel.find(dbQuery)
-            // if (!books.length) {
-            //     throw (ApiError.NotFound("Book not found"))
-            // }
-            // return res.json(books);
         }
         catch (e) {
             res.json(e)

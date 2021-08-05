@@ -24,5 +24,6 @@ router.post("/images", roleMiddleWare(["ADMIN"]), imgMiddleWare.single("avatar")
 router.delete("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.deleteBook)
 router.post("/books/batchDelete", roleMiddleWare(["ADMIN"]), bookController.deleteBooks)
 router.patch("/books/:bookId", roleMiddleWare(["ADMIN"]), bookController.updateBook)
+router.get("/books/:bookId",  authMiddleWare, bookController.getSingle)
 
 module.exports = router
