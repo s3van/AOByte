@@ -1,7 +1,7 @@
 const ApiError = require("../exceptions/apiError")
 const BookModel = require("../models/bookModel")
-const userModel = require("../models/userModel")
-const UserModel = require("../models/userModel")
+const fs = require("fs")
+const path = require("path")
 
 class BookService {
     async postBook(title, description, author, genre, year, img, link, email) {
@@ -13,25 +13,24 @@ class BookService {
             year: year,
             img: img,
             downloadLink: link,
-            owner: email
+            owner: email,
         })
-        const user = await UserModel.findOne({ email })
-        if(!user) throw ApiError.BadRequest(`User with this email was not found`)
         const savedBook = await book.save()
         return {
             savedBook,
-            role: user.roles
         }
     }
 
     async deleteOneBook(_id) {
+        const book = await BookModel.findOne({ _id })
+        if (book) {
+            fs.unlinkSync(path.join(__dirname, `../${book.img}`))
+        }
         const deletedBook = await BookModel.deleteOne({ _id })
         return deletedBook
     }
 
-    async updateOneBook(title, description, author, genre, year, img, rating, id, link, email) {
-        const user = await UserModel.findOne({ email })
-        if(!user) throw ApiError.BadRequest(`User with this email was not found`)
+    async updateOneBook(title, description, author, genre, year, img, id, link, owner) {
         const updatedBook = await BookModel.updateOne({ _id: id },
             {
                 $set: {
@@ -42,20 +41,50 @@ class BookService {
                     year: year,
                     img: img,
                     downloadLink: link,
-                    owner: email,
-
+                    owner: owner,
                 },
-                $push: {
-                    rating: rating,
-                }
+
             })
         return {
-            ...updatedBook,
-            role: user.roles
+            updatedBook,
         }
     }
 
+    async assessBook(rating, appraiser, id) {
+
+        const book = await BookModel.findOne({ _id: id })
+        if (book.appraisers.includes(appraiser)) {
+            throw ApiError.BadRequest(`You have already rated this book`)
+        }
+        const assessedBook = await BookModel.updateOne({ _id: id },
+            {
+                $push: {
+                    rating: {
+                        $each: [rating]
+                    },
+                    appraisers: {
+                        $each: [appraiser]
+                    },
+                }
+            })
+
+        return assessedBook
+    }
+
     async deleteManyBooks(ids) {
+        const books = await BookModel.find({
+            "_id": {
+                $in: ids
+            }
+        })
+        let imgs = books.map((book) => {
+            return book.img
+        })
+        if (imgs) {
+            imgs.forEach((imgpath) => {
+                fs.unlinkSync(path.join(__dirname, `../${imgpath}`))
+            })
+        }
         const deletedBooks = await BookModel.deleteMany({
             _id: {
                 $in:

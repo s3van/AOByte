@@ -13,9 +13,7 @@ class UserService {
     async registration(email, password) {
 
         const candidate = await UserModel.findOne({ email })
-        if (candidate) {
-            throw ApiError.AlreadyExists(`А user with such an email already exists`)
-        }
+        if (candidate) throw ApiError.AlreadyExists(`А user with such an email already exists`)
         const hashPassword = await bcrypt.hash(password, 3)
         const activationLink = uuid.v4()
 
@@ -36,22 +34,16 @@ class UserService {
     async activate(activationLink) {
 
         const user = await UserModel.findOne({ activationLink })
-        if (!user) {
-            throw ApiError.BadRequest(`Uncorrect activation link`)
-        }
+        if (!user) throw ApiError.BadRequest(`Uncorrect activation link`)
         user.isActivated = true
         await user.save()
     }
 
     async login(email, password) {
         const user = await UserModel.findOne({ email })
-        if (!user) {
-            throw ApiError.BadRequest(`User with this email was not found`)
-        }
+        if (!user) throw ApiError.BadRequest(`User with this email was not found`)
         const isPassEquals = await bcrypt.compare(password, user.password)
-        if (!isPassEquals) {
-            throw ApiError.BadRequest(`Wrong password`)
-        }
+        if (!isPassEquals) throw ApiError.BadRequest(`Wrong password`)
 
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })
@@ -69,16 +61,10 @@ class UserService {
     }
 
     async refresh(refreshToken) {
-        if (!refreshToken) {
-            throw ApiError.UnAuthorizedError()
-            
-        }
+        if (!refreshToken) throw ApiError.UnAuthorizedError()
         const userData = tokenService.validateRefreshToken(refreshToken)
         const tokenFromDb = await tokenService.findToken(refreshToken)
-        if (!userData || !tokenFromDb) {
-            throw ApiError.UnAuthorizedError()
-            
-        }
+        if (!userData || !tokenFromDb) throw ApiError.UnAuthorizedError()
         const user = await UserModel.findById(userData.id)
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })

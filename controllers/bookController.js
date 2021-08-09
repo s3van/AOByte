@@ -1,12 +1,10 @@
 const ApiError = require("../exceptions/apiError")
 const bookService = require("../service/bookService")
-const fs = require("fs")
-const path = require("path")
 
 class BookController {
 
-    async postImage(req, res, next){
-        try{
+    async postImage(req, res, next) {
+        try {
             if (!req.file) {
                 throw ApiError.BadRequest(`Please add image`)
             }
@@ -18,19 +16,19 @@ class BookController {
 
     async postBook(req, res, next) {
         try {
-            const {title, description, author, genre, year, img, link, owner } = req.body
-            const savedBook = await bookService.postBook(title,description,author,genre, year, img, link, owner)
+            const { title, description, author, genre, year, img, link, owner } = req.body
+            const savedBook = await bookService.postBook(title, description, author, genre, year, img, link, owner)
             return res.json(savedBook)
         } catch (e) {
             next(e)
         }
     }
 
-    async addRating(req,res,next){
-        try{
-            const {id,rating} = req.body
+    async addRating(req, res, next) {
+        try {
+            const { id, rating } = req.body
             await bookService.addRating(id, rating)
-        }catch(e){
+        } catch (e) {
 
         }
     }
@@ -47,21 +45,33 @@ class BookController {
 
     async updateBook(req, res, next) {
         try {
-            const { title, img, description, author, rating, genre, year, owner, link } = req.body
-            const id = req.params.bookId
-            const updatedBook = await bookService.updateOneBook(title, description, author, genre, year, img, rating, id, link, owner)
-            return res.json(updatedBook)
+            const { title, img, description, author, genre, year, owner, link } = req.body
+            if (title) {
+                const id = req.params.bookId
+                console.log(id)
+                const updatedBook = await bookService.updateOneBook(
+                    title, description, author, genre, year, img, id, link, owner
+                )
+                return res.json(updatedBook)
+            } else {
+                const { rating, appraiser } = req.body
+                const id = req.params.bookId
+                const assessedBook = await bookService.assessBook(
+                    rating, appraiser, id
+                )
+                return res.json(assessedBook)
+            }
         } catch (e) {
             next(e)
         }
     }
 
-    async getSingle(req,res,nex){
-        try{
+    async getSingle(req, res, nex) {
+        try {
             const id = req.params.bookId
             const singleBook = await bookService.getSingleBook(id)
             return res.json(singleBook)
-        } catch(e){
+        } catch (e) {
 
         }
     }
@@ -83,8 +93,8 @@ class BookController {
             const dbQuery = {};
             const sort = {}
             const pageOptions = {
-                page: parseInt(req.query.page,10) || 0,
-                limit: parseInt(req.query.limit,10) || 12
+                page: parseInt(req.query.page, 10) || 0,
+                limit: parseInt(req.query.limit, 10) || 12
             }
             const batchBooks = await bookService.getBatchBooks(query, dbQuery, sort, pageOptions)
             return res.json(batchBooks)

@@ -35,6 +35,10 @@ const BookSchema = new Schema({
         type: Array,
     },
 
+    appraisers: {
+        type: Array,
+    },
+
     date: {
         type: Date,
         default: Date.now
