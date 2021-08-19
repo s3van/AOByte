@@ -45,17 +45,33 @@ class BookController {
 
     async updateBook(req, res, next) {
         try {
-            const { title, img, description, author, genre, year, owner, link } = req.body
-            if (title) {
-                const id = req.params.bookId
-                console.log(id)
+            const {
+                title,
+                img,
+                description,
+                author,
+                genre,
+                year,
+                owner,
+                link,
+                comment,
+                rating,
+                appraiser,
+                commentator } = req.body
+            const id = req.params.bookId
+            if (!!title) {
                 const updatedBook = await bookService.updateOneBook(
                     title, description, author, genre, year, img, id, link, owner
                 )
                 return res.json(updatedBook)
-            } else {
-                const { rating, appraiser } = req.body
-                const id = req.params.bookId
+            }
+            else if (!!comment) {
+                const commentedBook = await bookService.addComment(
+                    comment, commentator, id
+                )
+                return res.json(commentedBook)
+            }
+            else if (!!rating) {
                 const assessedBook = await bookService.assessBook(
                     rating, appraiser, id
                 )
@@ -78,6 +94,7 @@ class BookController {
 
     async deleteBooks(req, res, next) {
         try {
+
             const { ids } = req.body;
             const deletedBooks = await bookService.deleteManyBooks(ids);
 
@@ -92,15 +109,17 @@ class BookController {
             const { query } = req;
             const dbQuery = {};
             const sort = {}
+            const genre = {}
             const pageOptions = {
                 page: parseInt(req.query.page, 10) || 0,
                 limit: parseInt(req.query.limit, 10) || 12
             }
-            const batchBooks = await bookService.getBatchBooks(query, dbQuery, sort, pageOptions)
+            const batchBooks = await bookService.getBatchBooks(query, dbQuery, sort, pageOptions, genre)
             return res.json(batchBooks)
         }
         catch (e) {
             res.json(e)
+            next(e)
         }
     }
 

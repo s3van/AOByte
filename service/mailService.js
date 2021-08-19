@@ -31,6 +31,24 @@ class MailService {
            res.json(err)
         })
     }
+
+    async sendChangePassMail(to, link) {
+        await this.transporter.sendMail({
+            from: process.env.SMTP_USER,
+            to: to,
+            subject: "",
+            text: '',
+            html:
+                `
+                    <div>
+                        <h1>Click here to reset your password</h1>
+                        <a href="${link}">${link}</a>
+                    </div>
+                `
+        }, (err, info) => {
+           res.json(err)
+        })
+    }
 }
 
 module.exports = new MailService()

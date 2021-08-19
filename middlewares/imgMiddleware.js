@@ -1,8 +1,20 @@
 const multer = require('multer');
+const ApiError = require("../exceptions/apiError")
+const path = require("path")
+const fs = require("fs")
  
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'images')
+        try{
+            if (fs.existsSync(path.join(__dirname, `../images/${file.originalname}`))) {
+               return cb(ApiError.BadRequest(`A picture with the same name already exists`))
+            }
+            else{
+                cb(null, 'images')
+            }
+        }catch(e){
+
+        }
     },
     filename: (req, file, cb) => {
         cb(null,  file.originalname)

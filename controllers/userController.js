@@ -58,8 +58,28 @@ class UserController {
             const userData = await userService.refresh(refreshToken)
             res.cookie("refreshToken", userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
             return res.json(userData)
-
         } catch (e) {
+            next(e)
+        }
+    }
+
+    async changePassword(req, res, next){
+        try {
+            const {email, password} = req.body
+            const userData = await userService.changeUserPassword(email, password)
+            return res.json(userData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async generateChangePassLink(req, res, next){
+        try{
+            const {email} = req.body
+            const response = await userService.generateLink(email)
+            return res.json("Password reset link has been sent to the mail")
+
+        } catch(e){
             next(e)
         }
     }

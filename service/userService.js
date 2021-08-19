@@ -32,7 +32,6 @@ class UserService {
     }
 
     async activate(activationLink) {
-
         const user = await UserModel.findOne({ activationLink })
         if (!user) throw ApiError.BadRequest(`Uncorrect activation link`)
         user.isActivated = true
@@ -74,6 +73,30 @@ class UserService {
             ...tokens,
             user: userDto
         }
+    }
+
+    async  changeUserPassword(email, password){
+        const hashPassword = await bcrypt.hash(password, 3)
+        const user = await UserModel.findOne({email})
+        if(user){
+            const updatedUser = await UserModel.updateOne({ email },
+                {
+                    $set: {
+                        password: hashPassword
+                    },
+                })
+            const userDto = new UserDto(user)
+            return {
+                user: userDto
+            }
+        }    
+    }
+
+
+    async  generateLink(email){
+        const user = await UserModel.findOne({ email })
+        if (!user) throw ApiError.BadRequest(`User with this email was not found`)
+        await mailService.sendChangePassMail(email, `${process.env.CLIENT_URL}/changepassword${user.activationLink}`)
     }
 
     async getUsers() {

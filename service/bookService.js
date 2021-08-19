@@ -2,8 +2,10 @@ const ApiError = require("../exceptions/apiError")
 const BookModel = require("../models/bookModel")
 const fs = require("fs")
 const path = require("path")
+const { body } = require('express-validator');
 
 class BookService {
+
     async postBook(title, description, author, genre, year, img, link, email) {
         const book = new BookModel({
             title: title,
@@ -27,6 +29,7 @@ class BookService {
             fs.unlinkSync(path.join(__dirname, `../${book.img}`))
         }
         const deletedBook = await BookModel.deleteOne({ _id })
+        if (deletedBook.deletedCount === 0) throw ApiError.BadRequest(`Books not found`)
         return deletedBook
     }
 
@@ -51,11 +54,8 @@ class BookService {
     }
 
     async assessBook(rating, appraiser, id) {
-
         const book = await BookModel.findOne({ _id: id })
-        if (book.appraisers.includes(appraiser)) {
-            throw ApiError.BadRequest(`You have already rated this book`)
-        }
+        if (book.appraisers.includes(appraiser)) throw ApiError.BadRequest(`You have already rated this book`)
         const assessedBook = await BookModel.updateOne({ _id: id },
             {
                 $push: {
@@ -69,6 +69,22 @@ class BookService {
             })
 
         return assessedBook
+    }
+
+    async addComment(comment, commentator, id) {
+        const book = await BookModel.findOne({ _id: id })
+        if (!book) throw ApiError.BadRequest(`Book not found`)
+        const commentedBook = await BookModel.updateOne({ _id: id },
+            {
+                $push: {
+                    comments: {
+                        comment: comment,
+                        commentator: commentator
+                    },
+                }
+            })
+
+        return commentedBook
     }
 
     async deleteManyBooks(ids) {
@@ -101,8 +117,7 @@ class BookService {
         return singleBook
     }
 
-
-    async getBatchBooks(query, dbQuery, sort, pageOptions) {
+    async getBatchBooks(query, dbQuery, sort, pageOptions, genre) {
 
         if (query.sort) {
             switch (query.sort) {
@@ -117,6 +132,10 @@ class BookService {
         if (query.search) {
             const searchReg = new RegExp(query.search, 'ig');
             dbQuery.$or = [{ title: searchReg }, { author: searchReg }];
+        }        
+        if (query.genre) {
+            const genreReg = new RegExp(query.genre, 'ig');
+            dbQuery.$or = [{ genre: genreReg }];
         }
         const booksCount = await BookModel.find()
         const books = await BookModel.find(dbQuery)

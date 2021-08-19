@@ -52,6 +52,10 @@ const BookSchema = new Schema({
     owner: {
         type: String,
         required: true,
+    },
+
+    comments: {
+        type: Array,
     }
 
 
