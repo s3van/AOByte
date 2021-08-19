@@ -1,0 +1,185 @@
+.wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tools{
+    height: 60%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
+
+.btn{
+    width: 30%;
+    height: 100%;
+    border: 0;
+    background: #ffaf65;
+    font-weight: 700;
+    color: rgb(46, 46, 46);
+    transition: all 0.2s ease;
+} 
+
+.btn:focus {
+	  outline: none;
+}
+
+.btn:active {
+	transform: translateX(-5px);
+}
+
+.btn:hover {
+	background-color: #d39357d7;
+	transition: all 0.2s ease;
+	cursor: pointer;
+} 
+
+.btn:disabled{
+    opacity: 0.5;
+} 
+
+.btn:active{
+    transform: translateX(5px);
+}
+
+.itemInput {
+    padding-left: 10px;
+    width: 70%;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #ebb22c;
+    border-right: none;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+}
+  
+.itemInput:focus {
+	outline: 0;
+}
+
+.itemInput::placeholder{
+    color: rgb(102, 102, 102);
+}
+  
+.itemInput:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;} 
+
+.error{
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    height: 30%;
+}
+.validDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    color: #e1f0c4;
+    font-size: 11px;
+    opacity: 0.8;
+    background: #ff0000c4;
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.validDiv:after{
+  content: '';
+  position: absolute; 
+  bottom: 100%; 
+  left: 0;
+  text-align: center;
+  transform: rotate(-90deg);
+  border-style: solid;
+  border-width: 5px;
+  border-color: transparent transparent transparent #ff0000c4;
+ }
+
+/* IPAD PRO*/
+@media (max-width: 1024px) {
+    .tools{
+        width: 70%;
+        height: 50%;
+        font-size: 26px;
+    }
+    .itemInput{
+        font-size: 24px;
+    }
+    .error{
+        width: 70%;
+        height: 30%;
+    }
+    .validDiv{
+        font-size: 20px;
+    }
+}
+
+/* IPAD */
+@media (max-width: 768px) {
+    .tools{
+        width: 70%;
+        height: 55%;
+    }
+    .error{
+        height: 40%;
+    }
+}
+
+
+/* Phone1 */
+@media (max-width: 540px) {
+    .tools{
+        width: 70%;
+        height: 50%;
+        font-size: 16px;
+    }
+    .itemInput{
+        font-size: 16px;
+    }
+    .validDiv{
+        font-size: 16px;
+    }
+
+}
+
+/* Phone2 */
+@media (max-width: 420px) {
+    .btnsWrap{
+        font-size: 12px;
+    }
+    .tools{
+        width: 70%;
+        height: 60%;
+        font-size: 12px;
+        padding-top: 5px;
+    }
+    .itemInput{
+        font-size: 12px;
+    }
+    .error{
+        width: 70%;
+        height: 40%;
+    }
+    .validDiv{
+        font-size: 10px;
+    }
+  }
+
+  /* Phone3 */
+@media (max-width: 320px) {
+    .tools{
+        width: 70%;
+        height: 58%;
+        font-size: 12px;
+        padding-top: 5px;
+    }
+    .error{
+        width: 70%;
+        height: 42%;
+    }
+  }

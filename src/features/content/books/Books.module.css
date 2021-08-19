@@ -1,0 +1,154 @@
+.books{
+   display: flex;
+   height: 100%;
+   width: 100%;
+   max-height: 100%;
+   min-width: 100%;
+   overflow-y: scroll;
+   flex-direction: column;
+   overflow-x: hidden;
+   padding-top: 10vh;
+}
+
+.ptux{
+    color: #F5F5F5;
+    width: 200px;
+    height: 200px;
+    margin-top: 100px;
+}
+
+.adminTools{
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    min-width: 50%;
+}
+
+.userTools{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.adminBtns{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.pages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    position: relative;
+}
+
+.active{
+    background: #12f8ad;
+}
+.activeLink{
+    color:#fff;
+    
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    font-weight: 700;
+
+  }
+  
+   li {
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 25px;
+    border-radius: 2px;
+  }
+  
+   li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  li a:hover{
+      color: #12f8ad;
+      text-decoration: none;
+  }
+
+  li:hover{
+      background: #12f8ad;
+  }
+  li:hover a {
+      color: #fff;
+  }
+  
+h1{
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #696969;
+	border-radius: 5px;
+}
+
+/* Ipad pro */
+@media (max-width: 1024px) {
+    .books{
+        justify-content: flex-start;
+        padding-top: 5vh;
+    }
+  }
+
+/* Ipad */
+@media (max-width: 768px) {
+    .books{
+        justify-content: flex-start;
+        padding-top: 7vh;
+    }
+  }
+
+/* Phone2 */
+@media (max-width: 540px) {
+    .books{
+        padding-top: 10vh;
+    }
+    .adminTools{
+        border-bottom: 1px solid #fcfcfc;
+    }
+}  
+
+/* Phone1 */
+@media (max-width: 420px) {
+    .books{
+        justify-content: flex-start;
+        padding-top: 21vh;
+        align-items: center;
+    }
+  }
+
+/* Phone2 */
+@media (max-width: 320px) {
+    .books{
+        padding-top: 17vh;
+    }
+   .adminTools{
+       font-size: 14px;
+   }
+  }
+

@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: #000;
+    z-index: 900;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fcfcfc;
+    border-bottom: 1px solid #fcfcfc;
+  }
+
+  .tools{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+  .searchWrap{
+    position: absolute;
+    top: 0;
+    width: 50%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .logo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 500;
+    padding-left: 20px;
+  }
+
+  .unAuthLogo{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logout{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding-right: 20px;
+  }
+
+  .search{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .lgtBtn{
+    border-radius: 4px;
+    height: 34px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 200ms linear;
+    padding: 20px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+    text-align: center;
+    border: none;
+    background-color: #12f8ad;
+    color: #fff;
+  }
+
+  .lgtBtn:hover{
+    color: #12f8ad;
+    background-color: #fff;
+  }
+
+  .lib{
+    color: #12f8ad;
+  }
+
+  .guide{
+    color: #ffe7d0;
+  }
+
+  @media (max-width: 540px) {
+    .searchWrap{
+      left: 32%;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .wrapper{
+      flex-direction: column;
+    }
+    .tools{
+      border-bottom: 1px solid #fcfcfc;
+    }
+    .searchWrap{
+      padding: 10px;
+      position: relative;
+      width: 100%;
+      left: 0;
+    }
+    .search{
+      width: 100%;
+    }
+    .logout{
+      width: 50%;
+      justify-content: center;
+      padding: 0;
+    }
+    .logo{
+      width: 50%;
+      justify-content: center;
+      border-right: 1px solid #fcfcfc;
+      border-left: 1px solid #fcfcfc;
+      padding: 0;
+    }
+  }
+
+    /* Phone4 */
+@media (max-width: 320px) {
+  .logo{
+    font-size: 28px;
+  }
+  .lgtBtn{
+    padding: 10px 10px;
+  }
+  .searchWrap{
+    left: 0;
+    height: 50px;
+  }
+  
+}
